@@ -208,12 +208,12 @@ let bardBag = [];
 function bardPick(){ if(!bardBag.length) bardBag = BARD.slice().sort(()=>Math.random()-0.5); return bardBag.pop(); }
 
 const S = { mode:'menu', score:0, best:0, lives:3, meter:0, t:0, spawnT:0.6, bubbles:[], pops:[], parts:[], trail:[], fades:[],
-  shake:0, streak:0, muted:false, drawing:false, pathLen:0, tutorial:true, level:1, niceGate:6 };
+  shake:0, streak:0, muted:true, drawing:false, pathLen:0, tutorial:true, level:1, niceGate:6 };
 const hero = { x:0, y:0, r:60, roll:0, rollDur:1, spins:1, hurt:0, happy:0, lookX:0, lookY:0, blink:0, blinkIn:2.5, idleRoll:2 };
 let W=0, H=0, DPR=1, FS=16;
 
 try { S.best = parseInt(localStorage.getItem('ugh-best')||'0',10)||0; } catch(e){}
-try { S.muted = localStorage.getItem('ugh-muted')==='1'; } catch(e){}
+try { S.muted = localStorage.getItem('ugh-muted')!=='0'; } catch(e){}
 $('mute').textContent = S.muted ? '🔇' : '🔊';
 
 function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }

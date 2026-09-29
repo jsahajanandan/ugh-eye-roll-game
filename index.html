@@ -348,7 +348,7 @@ function spawn(){
   if(side<0.64 || (W<H*0.6 && side<0.8)){ x=rand(w/2+6,W-w/2-6); y=-h-FS; }
   else if(side<0.82){ x=-w/2; y=rand(H*0.08,H*0.42); }
   else { x=W+w/2; y=rand(H*0.08,H*0.42); }
-  const base = Math.min(135, 34 + S.t*1.25) * Math.max(0.8, Math.min(1.25, H/760));
+  const base = Math.min(125, 34 + S.t*0.6) * Math.max(0.8, Math.min(1.25, H/760));
   S.bubbles.push({x,y,w,h,text,role,nice,sp:base*rand(0.85,1.15),wob:Math.random()*6.28,dead:0,kind:null});
 }
 
@@ -457,8 +457,8 @@ function update(dt){
 
   if(S.mode==='play'){
     S.spawnT-=dt;
-    if(S.spawnT<=0){ spawn(); S.spawnT = Math.max(0.42, 1.75 - S.t*0.022) * rand(0.75,1.2); if(S.t>40 && Math.random()<0.2) spawn(); }
-    const lv = 1+Math.floor(S.t/25);
+    if(S.spawnT<=0){ spawn(); S.spawnT = Math.max(0.5, 1.8 - S.t*0.01) * rand(0.75,1.2); if(S.t>80 && Math.random()<0.15) spawn(); }
+    const lv = 1+Math.floor(S.t/30);
     if(lv>S.level){ S.level=lv; pop(W/2,H*0.3,pick(['Everyone got more annoying','Patience tier: lower','Oh great, more of it','The group chat woke up']),'#ff5d5d',1); bard(); }
     S.bardCool-=dt; S.bardNext-=dt;
     if(S.bardNext<=0){ if(S.bardCool<=0) bard(); S.bardNext=rand(14,20); }

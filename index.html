@@ -245,14 +245,6 @@ const ASK_MENU = [
   "Hath thine inbox made thee weary, or is that merely thy face?",
   "Why tarriest thou? Is there a pre-meeting for this game?",
   "Dost thou dare, or shall we circle back to it next quarter?"];
-const ASK_START = [
-  "Thou pressed Start. Was that thy decision, or did a stakeholder approve it?",
-  "Thou art here instead of at thy standup? Bold. Proceed.",
-  "Ready, knave? Or shall we schedule a sync about thy readiness?",
-  "Art thou working, or \u2018researching productivity\u2019?",
-  "Is thy camera off? Good. Now, canst thou tell a bonus from a pizza party?",
-  "Dost thou call this deep work? Methinks thy manager would not.",
-  "Wilt thou roll thine eyes as boldly as thou dost in meetings?"];
 const BARD_WHO = ['The Bard, Chief Insult Officer','W. Shakespeare, VP of Shade','A memo from Stratford-upon-Slack','Hark! A performance review','The Bard hath entered the chat','Overheard at the Globe all-hands'];
 let bardBag = [];
 function bardPick(){ if(!bardBag.length) bardBag = BARD.slice().sort(()=>Math.random()-0.5); return bardBag.pop(); }
@@ -363,7 +355,6 @@ function start(){
   audio();
   Object.assign(S,{mode:'play',score:0,lives:3,meter:0,t:0,spawnT:0.5,bubbles:[],pops:[],parts:[],trail:[],fades:[],streak:0,tutorial:S.best<60,level:1,strokeHits:0,strokeBad:[],tutNice:S.best<60,fadeT:1,fadeTrail:[],drawing:false,bardCool:0,bardNext:rand(10,13),slow:0});
   $('bard').classList.remove('show');
-  setTimeout(()=>{ if(S.mode==='play' && S.t<3) bard(pick(ASK_START),'The Bard asketh'); }, 350);
   hero.roll=0; hero.hurt=0; hero.happy=0;
   $('menu').classList.add('hidden'); $('over').classList.add('hidden'); $('hud').classList.remove('hidden');
   hud();
@@ -393,10 +384,8 @@ $('share').addEventListener('click',async ()=>{
   }catch(e){ if(e && e.name==='AbortError') return; $('share').textContent='Copy failed :('; }
   setTimeout(()=>{ $('share').textContent='Dare a friend'; },1800);
 });
-(function menuBard(){ const el=$('menuBard'); let bag=[];
-  const f=()=>{ if(!bag.length) bag=ASK_MENU.slice().sort(()=>Math.random()-0.5);
-    el.innerHTML='<small>The Bard asketh</small>'; el.append('\u201c'+bag.pop()+'\u201d'); };
-  f(); setInterval(()=>{ if(S.mode==='menu') f(); },6000); })();
+$('menuBard').innerHTML='<small>The Bard asketh</small>';
+$('menuBard').append('\u201c'+pick(ASK_MENU)+'\u201d');
 $('mute').addEventListener('click',e=>{ e.stopPropagation(); S.muted=!S.muted; $('mute').textContent=S.muted?'🔇':'🔊';
   try{ localStorage.setItem('ugh-muted',S.muted?'1':'0'); }catch(err){} audio(); });
 
